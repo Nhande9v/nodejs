@@ -1,0 +1,26 @@
+{
+  "name": "hocnode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --inspect index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nhande9v/nodejs.git"
+  },
+  "author": "Nhande9v",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nhande9v/nodejs/issues"
+  },
+  "homepage": "https://github.com/Nhande9v/nodejs#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
