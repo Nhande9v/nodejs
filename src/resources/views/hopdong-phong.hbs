@@ -1,0 +1,24 @@
+<h2>Hợp đồng phòng: {{phongtro.tenphong}}</h2>
+{{#if hopdong}}
+  <ul>
+    <li>Mã hợp đồng: {{hopdong.idhopdong}}</li>
+    <li>Mã khách thuê: {{hopdong.makt}}</li>
+    <li>Ngày bắt đầu: {{hopdong.ngaybatdau}}</li>
+    <li>Ngày kết thúc: {{hopdong.ngayketthuc}}</li>
+    <li>Tiền đặt cọc: {{hopdong.tiendatcoc}}</li>
+    <li>Trạng thái: {{hopdong.trangthai}}</li>
+  </ul>
+  {{#if isMine}}
+    <p style="color:green;">Đây là hợp đồng của bạn.</p>
+  {{/if}}
+{{else}}
+  <p>Phòng này chưa có ai thuê.</p>
+  {{#if isUser}}
+    <form method="POST" action="/hopdong/phong/{{phongtro.idphong}}">
+      <label>Tiền đặt cọc: <input name="tiendatcoc" type="number" required></label>
+      <button type="submit" class="btn btn-success">Thuê phòng này</button>
+    </form>
+  {{else}}
+    <p><a href="/login">Đăng nhập</a> để thuê phòng này.</p>
+  {{/if}}
+{{/if}}

@@ -1,0 +1,19 @@
+<div class="mt-4">
+    
+    <div class="row">
+        {{#each phongtro}}
+        <div class="col-sm-6 col-lg-4">
+            <div class="card card-phongtro-item">
+                <div class="card-body">
+                    <h5 class="card-title">{{this.tenphong}}</h5>
+                    <p>ID: {{this.idphong}}</p>
+                    <p>Trạng thái: <span class="badge bg-success">{{this.trangthai}}</span></p>
+                     {{#if ../isUser}}
+                      <a href="/hopdong/phong/{{this.idphong}}" class="btn btn-info btn-sm">Xem hợp đồng</a>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>

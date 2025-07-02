@@ -1,0 +1,20 @@
+<h2>Sửa thông tin khách thuê</h2>
+<form method="POST" action="/khachthue/{{khach._id}}/edit">
+  <div>
+    <label>Họ tên:</label>
+    <input type="text" name="ten" value="{{khach.ten}}" required>
+  </div>
+  <div>
+    <label>Email:</label>
+    <input type="email" name="email" value="{{khach.email}}" required>
+  </div>
+  <div>
+    <label>SĐT:</label>
+    <input type="text" name="sdt" value="{{khach.sdt}}">
+  </div>
+  <div>
+    <label>CCCD:</label>
+    <input type="text" name="cccd" value="{{khach.cccd}}">
+  </div>
+  <button type="submit" class="btn btn-primary">Lưu</button>
+</form>

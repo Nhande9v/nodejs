@@ -1,0 +1,33 @@
+
+<h1>Danh sách khách thuê</h1>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Họ tên</th>
+      <th>Email</th>
+      <th>SĐT</th>
+      <th>CCCD</th>
+      <th>Mã khách thuê</th>
+      {{#if isAdmin}}<th>Hành động</th>{{/if}}
+    </tr>
+  </thead>
+  <tbody>
+    {{#each khachthue}}
+    <tr>
+      <td>{{this.ten}}</td>
+      <td>{{this.email}}</td>
+      <td>{{this.sdt}}</td>
+      <td>{{this.cccd}}</td>
+      <td>{{this.makt}}</td>
+      {{#if ../isAdmin}}
+      <td>
+        <a href="/khachthue/{{this._id}}/edit" class="btn btn-warning btn-sm">Sửa</a>
+        <form action="/khachthue/{{this._id}}/delete" method="POST" style="display:inline;">
+          <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Xóa khách thuê này?')">Xóa</button>
+        </form>
+      </td>
+      {{/if}}
+    </tr>
+    {{/each}}
+  </tbody>
+</table>

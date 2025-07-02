@@ -1,0 +1,15 @@
+<h1>Danh sách phòng trọ</h1>
+<table border="1" cellpadding="5">
+  <tr>
+    <th>Tên phòng</th>
+    <th>Trạng thái</th>
+    <th>ID Phòng</th>
+  </tr>
+  {{#each phongtro}}
+    <tr>
+      <td>{{this.tenphong}}</td>
+      <td>{{this.trangthai}}</td>
+      <td>{{this.idphong}}</td>
+    </tr>
+  {{/each}}
+</table>
