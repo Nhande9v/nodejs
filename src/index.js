@@ -1,10 +1,13 @@
+
+
 const express = require('express')
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000;
 const morgan = require('morgan')
 const { engine } = require('express-handlebars');
 const path = require('path')
 const session = require('express-session');
+
 
 const route = require('./routes/index');
 
@@ -49,6 +52,6 @@ app.use((req, res, next) => {
 route(app);
 
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
