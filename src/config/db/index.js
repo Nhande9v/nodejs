@@ -7,6 +7,7 @@ async function connect(){
         console.log("Connect succesfully!!!");
     } catch (error) {
         console.log("Connect fail!!!");
+        console.error(error); // In lỗi chi tiết ra log
     }
 }
 
