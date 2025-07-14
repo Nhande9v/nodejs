@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const phongTroController = require('../app/controllers/PhongTroController');
+const phongTroController = require('../app/controllers/PhongtroController');
 const isAdmin = require('../middleware/isAdmin');
 
 // Hiển thị danh sách phòng trọ
