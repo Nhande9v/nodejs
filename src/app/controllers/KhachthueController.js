@@ -14,17 +14,17 @@ class KhachthueController {
     }
   }
   async edit(req, res) {
-    const khach = await Khachthue.findById(req.params.id);
+    const khach = await Khachthue.findOne({ makt: req.params.makt });
     res.render('edit-khachthue', { khach: mongooseToObject(khach) });
   }
 
   async update(req, res) {
-    await Khachthue.updateOne({ _id: req.params.id }, req.body);
+    await Khachthue.updateOne({ makt: req.params.makt }, req.body);
     res.redirect('/khachthue');
   }
 
   async delete(req, res) {
-    await Khachthue.deleteOne({ _id: req.params.id });
+    await Khachthue.deleteOne({ makt: req.params.makt });
     res.redirect('/khachthue');
   }
 }

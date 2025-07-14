@@ -18,5 +18,9 @@
 <p style="text-align: center; margin-top: 20px;">
   Chưa có tài khoản? <a href="/dang-ky">Đăng ký tại đây</a>
 </p>
-
+ {{#if error}}
+<script>
+  alert('{{error}}');
+</script>
+{{/if}}
 </div>

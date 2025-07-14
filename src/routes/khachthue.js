@@ -6,8 +6,8 @@ const isAdmin = require('../middleware/isAdmin');
 router.get('/', khachthueController.index);
 
 // Chỉ admin mới được sửa/xóa
-router.get('/:id/edit', isAdmin, khachthueController.edit);
-router.post('/:id/edit', isAdmin, khachthueController.update);
-router.post('/:id/delete', isAdmin, khachthueController.delete);
+router.get('/:makt/edit', isAdmin, khachthueController.edit);
+router.post('/:makt/edit', isAdmin, khachthueController.update);
+router.post('/:makt/delete', isAdmin, khachthueController.delete);
 
 module.exports = router;

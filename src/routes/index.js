@@ -5,9 +5,17 @@ const authRouter = require('./auth');
 const Khachthue = require('../app/models/Khachthue');
 const Chutro = require('../app/models/Chutro');
 const hopdongRouter = require('./hopdong');
+const phongtroRouter = require('./phongtro');
+const myRoute = require('./my');
+const sucoRouter = require('./suco');
+
 
 
 function route(app) {
+   app.use('/my', myRoute);
+   app.use('/suco', sucoRouter);
+
+  app.use('/phongtro', phongtroRouter);
   app.use('/hopdong', hopdongRouter);
   app.use('/khachthue', khachthueRouter);
   app.use('/news', newsRouter);

@@ -1,24 +1,76 @@
-<h2>Hợp đồng phòng: {{phongtro.tenphong}}</h2>
-{{#if hopdong}}
-  <ul>
-    <li>Mã hợp đồng: {{hopdong.idhopdong}}</li>
-    <li>Mã khách thuê: {{hopdong.makt}}</li>
-    <li>Ngày bắt đầu: {{hopdong.ngaybatdau}}</li>
-    <li>Ngày kết thúc: {{hopdong.ngayketthuc}}</li>
-    <li>Tiền đặt cọc: {{hopdong.tiendatcoc}}</li>
-    <li>Trạng thái: {{hopdong.trangthai}}</li>
-  </ul>
-  {{#if isMine}}
-    <p style="color:green;">Đây là hợp đồng của bạn.</p>
-  {{/if}}
+{{!-- {{#if hopdong}}
+<ul>
+  <li>Mã chủ trọ: {{hopdong.idchutro}}</li>
+  <li>Mã hợp đồng: {{hopdong.idhopdong}}</li>
+  <li>Mã khách thuê: {{hopdong.makt}}</li>
+  <li>Ngày bắt đầu: {{hopdong.ngaybatdau}}</li>
+  <li>Ngày kết thúc: {{hopdong.ngayketthuc}}</li>
+  <li>Tiền đặt cọc: {{hopdong.tiendatcoc}}</li>
+  <li>Trạng thái: {{hopdong.trangthai}}</li>
+</ul>
+{{#if isMine}}
+<p style="color:green;">Đây là hợp đồng của bạn.</p>
+{{/if}}
 {{else}}
-  <p>Phòng này chưa có ai thuê.</p>
-  {{#if isUser}}
-    <form method="POST" action="/hopdong/phong/{{phongtro.idphong}}">
-      <label>Tiền đặt cọc: <input name="tiendatcoc" type="number" required></label>
-      <button type="submit" class="btn btn-success">Thuê phòng này</button>
+<p>Phòng này chưa có ai thuê.</p>
+{{#if isUser}}
+<form method="POST" action="/hopdong/phong/{{phongtro.idphong}}">
+  <label>Tiền đặt cọc: <input name="tiendatcoc" type="number" required></label>
+  <button type="submit" class="btn btn-success">Thuê phòng này</button>
+</form>
+{{else}}
+<p><a href="/login">Đăng nhập</a> để thuê phòng này.</p>
+{{/if}}
+{{/if}} --}}
+
+<h2 class="text-center mb-4">Hợp đồng phòng: {{phongtro.tenphong}}</h2>
+{{#if successMessage}}
+  <div class="alert alert-success text-center">{{successMessage}}</div>
+{{/if}} 
+
+{{#if hopdong}}
+  <div class="card mx-auto" style="max-width: 600px;">
+    <div class="card-body">
+      <h5 class="card-title">Thông tin hợp đồng</h5>
+      <ul class="list-group list-group-flush mb-3">
+        <li class="list-group-item"><strong>Mã chủ trọ:</strong> {{hopdong.idchutro}}</li>
+        <li class="list-group-item"><strong>Mã hợp đồng:</strong> {{hopdong.idhopdong}}</li>
+        <li class="list-group-item"><strong>Mã khách thuê:</strong> {{hopdong.makt}}</li>
+        <li class="list-group-item"><strong>Ngày bắt đầu:</strong> {{hopdong.ngaybatdau}}</li>
+        <li class="list-group-item"><strong>Ngày kết thúc:</strong> {{hopdong.ngayketthuc}}</li>
+        <li class="list-group-item"><strong>Tiền đặt cọc:</strong> {{hopdong.tiendatcoc}} VNĐ</li>
+        <li class="list-group-item"><strong>Trạng thái:</strong> {{hopdong.trangthai}}</li>
+      </ul>
+
+      {{#if isMine}}
+      <p class="text-success text-center fw-bold">Đây là hợp đồng của bạn.</p>
+      {{/if}}
+
+      {{#if isAdmin}}
+      <div class="text-center">
+        <form method="POST" action="/hopdong/{{hopdong.idhopdong}}/delete" style="display:inline-block; margin-right: 10px;">
+          <button type="submit" class="btn btn-danger">Xóa hợp đồng</button>
+        </form>
+        <form method="GET" action="/hopdong/phong/{{phongtro.idphong}}/edit" style="display:inline-block;">
+          <button type="submit" class="btn btn-primary">Sửa hợp đồng</button>
+        </form>
+      </div>
+      {{/if}}
+    </div>
+  </div>
+{{else}}
+  <div class="alert alert-info text-center">
+    <h4>Thông tin chuyển khoản đặt cọc</h4>
+    <p><b>Chủ tài khoản:</b> {{chutro.tenchutro}}</p>
+    <p><b>Số tài khoản:</b> {{chutro.stk}}</p>
+    <p><b>Ngân hàng:</b> {{chutro.nganhang}}</p>
+    <p><b>Nội dung chuyển khoản:</b> DATCOC-{{phongtro.idphong}}-{{user.makt}}--{{user.ten}}</p>
+    {{#if chutro.qr}}
+      <img src="{{chutro.qr}}" alt="QR chuyển khoản" style="max-width:200px;">
+    {{/if}}
+    <form method="POST" action="/hopdong/phong/{{phongtro.idphong}}/yeucau">
+      <input type="hidden" name="tiendatcoc" value="{{phongtro.tiendatcoc}}">
+      <button type="submit" class="btn btn-success mt-3">Tôi đã chuyển khoản, xác nhận thuê phòng</button>
     </form>
-  {{else}}
-    <p><a href="/login">Đăng nhập</a> để thuê phòng này.</p>
-  {{/if}}
+  </div>
 {{/if}}

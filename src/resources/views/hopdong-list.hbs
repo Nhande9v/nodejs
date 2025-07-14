@@ -1,6 +1,7 @@
-<h2>Danh sách hợp đồng</h2>
-<table class="table table-bordered">
-  <thead>
+<h2 class="text-center mb-4">Danh sách hợp đồng</h2>
+
+<table class="table table-bordered table-hover text-center align-middle">
+  <thead class="table-dark">
     <tr>
       <th>Mã hợp đồng</th>
       <th>Phòng</th>
@@ -17,9 +18,17 @@
       <td>{{idhopdong}}</td>
       <td>{{idphong}}</td>
       <td>{{makt}}</td>
-      <td>{{ngaybatdau}}</td>
-      <td>{{ngayketthuc}}</td>
-      <td>{{trangthai}}</td>
+      <td>{{formatDate ngaybatdau}}</td>
+      <td>{{formatDate ngayketthuc}}</td>
+      <td>
+        {{#if (eq trangthai "Đang hiệu lực")}}
+          <span class="badge bg-success">Đang hiệu lực</span>
+        {{else if (eq trangthai "Đã kết thúc")}}
+          <span class="badge bg-secondary">Đã kết thúc</span>
+        {{else}}
+          <span class="badge bg-warning text-dark">{{trangthai}}</span>
+        {{/if}}
+      </td>
       <td>
         <a href="/hopdong/{{_id}}" class="btn btn-info btn-sm">Xem chi tiết</a>
       </td>

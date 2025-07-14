@@ -1,20 +1,27 @@
-<h2>Sửa thông tin khách thuê</h2>
-<form method="POST" action="/khachthue/{{khach._id}}/edit">
-  <div>
-    <label>Họ tên:</label>
-    <input type="text" name="ten" value="{{khach.ten}}" required>
+<h2 class="text-center mb-4">Sửa thông tin khách thuê</h2>
+
+<form method="POST" action="/khachthue/{{khach.makt}}/edit" style="max-width: 600px; margin: auto;">
+  <div class="mb-3">
+    <label class="form-label">Họ tên:</label>
+    <input type="text" name="ten" value="{{khach.ten}}" class="form-control" required>
   </div>
-  <div>
-    <label>Email:</label>
-    <input type="email" name="email" value="{{khach.email}}" required>
+
+  <div class="mb-3">
+    <label class="form-label">Email:</label>
+    <input type="email" name="email" value="{{khach.email}}" class="form-control" required>
   </div>
-  <div>
-    <label>SĐT:</label>
-    <input type="text" name="sdt" value="{{khach.sdt}}">
+
+  <div class="mb-3">
+    <label class="form-label">Số điện thoại:</label>
+    <input type="text" name="sdt" value="{{khach.sdt}}" class="form-control">
   </div>
-  <div>
-    <label>CCCD:</label>
-    <input type="text" name="cccd" value="{{khach.cccd}}">
+
+  <div class="mb-3">
+    <label class="form-label">CCCD:</label>
+    <input type="text" name="cccd" value="{{khach.cccd}}" class="form-control">
   </div>
-  <button type="submit" class="btn btn-primary">Lưu</button>
+
+  <div class="text-center">
+    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+  </div>
 </form>

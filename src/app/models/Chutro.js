@@ -7,7 +7,10 @@ const Chutro = new Schema({
   pass: String,
   sdt: String,
   diachi: String,
-  idchutro: String
+  idchutro: String,
+  stk: String,        
+  nganhang: String,    
+  qr: String     
 });
 
 module.exports = mongoose.model('Chutro', Chutro, 'chutro');

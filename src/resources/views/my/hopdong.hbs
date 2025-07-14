@@ -1,0 +1,33 @@
+<h2>Danh sách hợp đồng của tôi</h2>
+
+{{#if successMessage}}
+  <div class="alert alert-success">{{successMessage}}</div>
+{{/if}}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Hợp đồng</th>
+            <th scope="col">Phòng</th>
+            <th scope="col">Trạng thái</th>
+             <th scope="col">Báo cáo</th> 
+             
+        </tr>
+    </thead>
+    <tbody>
+        {{#each hopdong}}
+        <tr>
+            <th scope="row">{{sum @index 1}}</th>
+            <td>{{this.idhopdong}}</td>
+            <td>{{this.idphong}}</td>
+            <td>{{this.trangthai}}</td>
+            <td>
+                <a href="/suco/{{this.idphong}}" class="btn btn-danger btn-sm">
+                    Báo cáo sự cố
+                </a>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+    
+</table>

@@ -1,7 +1,7 @@
+<h1 class="text-center mb-4">Danh sách khách thuê</h1>
 
-<h1>Danh sách khách thuê</h1>
-<table class="table table-bordered">
-  <thead>
+<table class="table table-bordered table-hover text-center align-middle">
+  <thead class="table-dark">
     <tr>
       <th>Họ tên</th>
       <th>Email</th>
@@ -19,12 +19,19 @@
       <td>{{this.sdt}}</td>
       <td>{{this.cccd}}</td>
       <td>{{this.makt}}</td>
+      
       {{#if ../isAdmin}}
       <td>
-        <a href="/khachthue/{{this._id}}/edit" class="btn btn-warning btn-sm">Sửa</a>
-        <form action="/khachthue/{{this._id}}/delete" method="POST" style="display:inline;">
-          <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Xóa khách thuê này?')">Xóa</button>
-        </form>
+        <div class="d-flex justify-content-center gap-2">
+          <a href="/khachthue/{{this.makt}}/edit" class="btn btn-sm btn-warning">
+            <i class="bi bi-pencil-square"></i> Sửa
+          </a>
+          <form action="/khachthue/{{this.makt}}/delete" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa khách thuê này?')">
+            <button type="submit" class="btn btn-sm btn-danger">
+              <i class="bi bi-trash"></i> Xóa
+            </button>
+          </form>
+        </div>
       </td>
       {{/if}}
     </tr>

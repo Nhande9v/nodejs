@@ -8,7 +8,14 @@ router.get('/', isAdmin, HopdongController.listAll);
 // Xem chi tiết hợp đồng theo _id (chỉ admin)
 router.get('/:id', isAdmin, HopdongController.detail);
 
+// Thêm route cho chủ trọ tạo hợp đồng (form nhập tay)
+router.get('/tao/:phongtroId', isAdmin, HopdongController.showCreateForm);
+router.post('/tao/:phongtroId', isAdmin, HopdongController.createByAdmin);
+router.post('/:idhopdong/delete', isAdmin, HopdongController.deleteHopdong);
+
+
 // Xem hợp đồng của phòng (dùng idphong, cho khách thuê)
+router.post('/phong/:phongtroId/yeucau', HopdongController.requestRent);
 router.get('/phong/:phongtroId', HopdongController.viewByRoom);
 router.post('/phong/:phongtroId', HopdongController.createForRoom);
 

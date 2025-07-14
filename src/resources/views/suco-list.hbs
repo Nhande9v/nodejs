@@ -1,0 +1,42 @@
+<h2>Danh sách sự cố cần xử lý</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Phòng</th>
+      <th>Khách thuê</th>
+      <th>Tên sự cố</th>
+      <th>Mô tả</th>
+      <th>Ngày báo cáo</th>
+      <th>Trạng thái</th>
+      <th>Hành động</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each sucos}}
+    <tr>
+      <td>{{this.idphong}}</td>
+      <td>{{this.makt}}</td>
+      <td>{{this.tensuco}}</td>
+      <td>{{this.mota}}</td>
+      <td>{{formatDate this.ngaybaocao}}</td>
+      <td>
+        {{#if (eq this.trangthai "Chờ xử lý")}}
+          <span class="badge bg-warning text-dark">{{this.trangthai}}</span>
+        {{else}}
+          <span class="badge bg-success">{{this.trangthai}}</span>
+        {{/if}}
+      </td>
+      <td>
+        {{#if (eq this.trangthai "Chờ xử lý")}}
+          <form method="POST" action="/suco/{{this.idsuco}}/mark-done">
+            <button type="submit" class="btn btn-sm btn-success">Đã xử lý</button>
+          </form>
+        {{else}}
+          <em>Đã xử lý</em>
+        {{/if}}
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>

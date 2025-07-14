@@ -1,11 +1,27 @@
-<h2>Chi tiết hợp đồng</h2>
-<ul>
-  <li>Mã hợp đồng: {{hopdong.idhopdong}}</li>
-  <li>Phòng: {{hopdong.idphong}}</li>
-  <li>Khách thuê: {{hopdong.makt}}</li>
-  <li>Ngày bắt đầu: {{hopdong.ngaybatdau}}</li>
-  <li>Ngày kết thúc: {{hopdong.ngayketthuc}}</li>
-  <li>Tiền đặt cọc: {{hopdong.tiendatcoc}}</li>
-  <li>Trạng thái: {{hopdong.trangthai}}</li>
-</ul>
-<a href="/hopdong" class="btn btn-secondary">Quay lại danh sách</a>
+<h2 class="text-center mb-4">Chi tiết hợp đồng</h2>
+
+<div class="card mx-auto" style="max-width: 600px;">
+  <div class="card-body">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><strong>Mã hợp đồng:</strong> {{hopdong.idhopdong}}</li>
+      <li class="list-group-item"><strong>Phòng:</strong> {{hopdong.idphong}}</li>
+      <li class="list-group-item"><strong>Khách thuê:</strong> {{hopdong.makt}}</li>
+      <li class="list-group-item"><strong>Ngày bắt đầu:</strong> {{formatDate hopdong.ngaybatdau}}</li>
+      <li class="list-group-item"><strong>Ngày kết thúc:</strong> {{formatDate hopdong.ngayketthuc}}</li>
+      <li class="list-group-item"><strong>Tiền đặt cọc:</strong> {{formatCurrency hopdong.tiendatcoc}}</li>
+      <li class="list-group-item"><strong>Trạng thái:</strong> 
+        {{#if (eq hopdong.trangthai "Đang hiệu lực")}}
+          <span class="badge bg-success">Đang hiệu lực</span>
+        {{else if (eq hopdong.trangthai "Đã kết thúc")}}
+          <span class="badge bg-secondary">Đã kết thúc</span>
+        {{else}}
+          {{hopdong.trangthai}}
+        {{/if}}
+      </li>
+    </ul>
+
+    <div class="mt-4 text-center">
+      <a href="/hopdong" class="btn btn-secondary">← Quay lại danh sách</a>
+    </div>
+  </div>
+</div>

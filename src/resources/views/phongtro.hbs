@@ -1,15 +1,54 @@
-<h1>Danh sách phòng trọ</h1>
-<table border="1" cellpadding="5">
-  <tr>
-    <th>Tên phòng</th>
-    <th>Trạng thái</th>
-    <th>ID Phòng</th>
-  </tr>
-  {{#each phongtro}}
+<h1 class="mb-4 text-center">Danh sách phòng trọ</h1>
+
+{{#if isAdmin}}
+  <div class="text-center mb-3">
+    <a href="/phongtro/them" class="btn btn-primary">
+      <i class="bi bi-plus-circle"></i> Thêm phòng mới
+    </a>
+  </div>
+{{/if}}
+
+<table class="table table-bordered table-hover text-center align-middle">
+  <thead class="table-dark">
     <tr>
-      <td>{{this.tenphong}}</td>
-      <td>{{this.trangthai}}</td>
-      <td>{{this.idphong}}</td>
+      <th scope="col">Tên phòng</th>
+      <th scope="col">Trạng thái</th>
+      <th scope="col">ID Phòng</th>
+      <th scope="col">Tiền đặt cọc</th>
+      {{#if isAdmin}}<th scope="col">Sửa đổi phòng</th>{{/if}}
+      {{#if isAdmin}}<th scope="col">Hành động</th>{{/if}}
     </tr>
-  {{/each}}
+  </thead>
+  <tbody>
+    {{#each phongtro}}
+      <tr>
+        <td>{{this.tenphong}}</td>
+        <td>
+          {{#if (eq this.trangthai "Đã thuê")}}
+            <span class="badge bg-secondary">Đã thuê</span>
+          {{else}}
+            <span class="badge bg-success">Chưa thuê</span>
+          {{/if}}
+        </td>
+        <td>{{this.idphong}}</td>
+        <td>{{formatCurrency this.tiendatcoc}}</td>
+
+        {{#if ../isAdmin}}
+        <td>
+          <a href="/phongtro/{{this.idphong}}/edit" class="btn btn-sm btn-primary">Sửa</a>
+          <form action="/phongtro/{{this.idphong}}/delete" method="POST" style="display: inline;">
+            <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
+          </form>
+        </td>
+        <td>
+          {{#if (lookup ../hopdongMap this.idphong)}}
+            <a href="/hopdong/phong/{{this.idphong}}" class="btn btn-sm btn-warning">Sửa hợp đồng</a>
+          {{else}}
+            <a href="/hopdong/tao/{{this.idphong}}" class="btn btn-sm btn-success">Tạo hợp đồng</a>
+          {{/if}}
+        </td>
+        {{/if}}
+      </tr>
+    {{/each}}
+  </tbody>
 </table>

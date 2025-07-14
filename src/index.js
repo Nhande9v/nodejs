@@ -27,10 +27,18 @@ app.use(express.json());
 app.engine('hbs', engine({
   extname: '.hbs',
 }));
+
 app.engine('hbs', engine({
   extname: '.hbs',
   helpers: {
-    eq: (a, b) => a === b
+    formatDate(date) {
+      if (!date) return '';
+      return new Date(date).toLocaleDateString('vi-VN');
+    },
+    sum: (a, b) => a + b,
+    eq: (a, b) => a === b,
+    lookup: (obj, field) => obj && obj[field],
+    formatCurrency: (value) => value ? value.toLocaleString('vi-VN') : 0
   }
 }));
 app.set('view engine', 'hbs');

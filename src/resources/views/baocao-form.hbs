@@ -1,0 +1,19 @@
+<h2>Báo cáo sự cố phòng {{idphong}}</h2>
+
+<form method="POST">
+  <div class="form-group">
+    <label for="tensuco">Tên sự cố:</label>
+    <input type="text" name="tensuco" id="tensuco" class="form-control" required>
+  </div>
+
+  <div class="form-group mt-3">   
+    <label for="mota">Nội dung sự cố:</label>
+    <textarea name="mota" id="mota" class="form-control" rows="5" required></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-danger mt-3">Gửi báo cáo</button>
+  <a href="/my/hopdong" class="btn btn-secondary mt-3">Quay lại</a>
+  {{#if successMessage}}
+  <div class="alert alert-success">{{successMessage}}</div>
+{{/if}}
+</form>
