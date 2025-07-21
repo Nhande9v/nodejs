@@ -8,6 +8,7 @@ const hopdongRouter = require('./hopdong');
 const phongtroRouter = require('./phongtro');
 const myRoute = require('./my');
 const sucoRouter = require('./suco');
+const diennuocRouter = require('./diennuoc');
 
 
 
@@ -16,6 +17,7 @@ function route(app) {
    app.use('/suco', sucoRouter);
 
   app.use('/phongtro', phongtroRouter);
+  app.use('/diennuoc', diennuocRouter);
   app.use('/hopdong', hopdongRouter);
   app.use('/khachthue', khachthueRouter);
   app.use('/news', newsRouter);

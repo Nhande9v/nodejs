@@ -1,0 +1,31 @@
+<h2>chọn tháng {{tenphong}} (Mã: {{idphong}})</h2>
+<form method="GET" action="/diennuoc/{{idphong}}">
+  <select id="thangSelect" name="thang" class="form-control">
+    <option value="1">Tháng 1</option>
+    <option value="2">Tháng 2</option>
+    <option value="3">Tháng 3</option>
+    <option value="4">Tháng 4</option>  
+    <option value="5">Tháng 5</option>
+    <option value="6">Tháng 6</option>
+    <option value="7">Tháng 7</option>
+    <option value="8">Tháng 8</option>
+    <option value="9">Tháng 9</option>
+    <option value="10">Tháng 10</option>
+    <option value="11">Tháng 11</option>
+    <option value="12">Tháng 12</option>
+  </select>
+
+  <a id="xemHoaDonBtn" href="/diennuoc/{{this.idphong}}/{{thang}}" class="btn btn-danger btn-sm">
+                    Xem hoá đơn
+                </a>
+</form>
+<script>
+  const select = document.getElementById('thangSelect');
+  const btn = document.getElementById('xemHoaDonBtn');
+  
+  select.addEventListener('change', function() {
+    btn.href = `/diennuoc/{{idphong}}/${this.value}`;
+  });
+  // Khởi tạo đường dẫn đúng khi load trang
+ btn.href = `/diennuoc/{{idphong}}/${select.value}`;
+</script>
