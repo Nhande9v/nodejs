@@ -8,7 +8,8 @@ const Phongtro = new Schema({
   idphong: String,
   tiendatcoc: Number,
   img : String,
-  idchutro: String
+  idchutro: String,
+  mota: String
 });
 
 module.exports = mongoose.model('Phongtro', Phongtro, 'phongtro');

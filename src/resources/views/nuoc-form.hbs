@@ -1,0 +1,21 @@
+<h2>Nhập chỉ số nước cho phòng {{phongtro.tenphong}} ({{phongtro.idphong}})</h2>
+<form method="POST">
+  <input type="hidden" name="idphong" value="{{phongtro.idphong}}">
+  <div class="form-group">
+    <label>Tháng:</label>
+    <input name="thang" class="form-control" required placeholder="07/2025" value="{{thang}}">
+  </div>
+  <div class="form-group">
+    <label>Chỉ số cũ:</label>
+    <input name="chisocu" type="number" class="form-control" required value="{{nuoc.chisocu}}">
+  </div>
+  <div class="form-group">
+    <label>Chỉ số mới:</label>
+    <input name="chisomoi" type="number" class="form-control" required value="{{nuoc.chisomoi}}">
+  </div>
+  <div class="form-group">
+    <label>Đơn giá:</label>
+    <input name="dongia" type="number" class="form-control" value="15000" required value="{{nuoc.dongia}}">
+  </div>
+  <button type="submit" class="btn btn-success mt-3">Lưu chỉ số nước</button>
+</form>

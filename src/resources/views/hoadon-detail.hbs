@@ -1,0 +1,64 @@
+<h2>Hóa đơn tổng hợp phòng</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Tháng</th>
+      <th>Tiền điện</th>
+      <th>Tiền nước</th>
+      <th>Tiền thuê phòng</th>
+      <th>Tổng tiền</th>
+      <th>Ngày lập</th>
+      <th>Trạng thái</th>
+    {{#if isAdmin}}
+      <th>Hành động</th>
+    {{/if}}
+    </tr>
+  </thead>
+  <tbody>
+   {{#each hoadons}}
+<tr>
+  <td>{{this.thang}}</td>
+  <td>{{formatCurrency this.tiendien}}</td>
+  <td>{{formatCurrency this.tiennuoc}}</td>
+  <td>{{formatCurrency this.tienthuephong}}</td>
+  <td>{{formatCurrency this.tongtien}}</td>
+  <td>{{formatDate this.ngaylap}}</td>
+  <td>
+    {{#if (eq this.trangthai "Đã thanh toán")}}
+      <span class="badge badge-success">Đã thanh toán</span>
+    {{else}}
+      <span class="badge badge-warning">Chưa thanh toán</span>
+    {{/if}}
+  </td>
+
+  <td>
+  {{#if ../isAdmin}}
+  {{!-- Sửa --}}
+    <form method="POST" action="/hoadon/{{this.idphong}}/confirm?thang={{this.thang}}">
+      <button type="submit" class="btn btn-success btn-sm ml-2">Xác nhận đã nhận tiền</button>
+    </form>
+  {{else}}
+    <span class="text-muted">--</span>
+  {{/if}}
+</td>
+</tr>
+{{/each}}
+  </tbody>
+</table>
+
+{{!-- Thông tin chuyển khoản --}}
+<div class="alert alert-info mt-4">
+  <h5>Hướng dẫn thanh toán</h5>
+  <p>Vui lòng chuyển khoản tổng tiền hóa đơn vào tài khoản chủ trọ:</p>
+  <ul>
+    <li><b>Chủ tài khoản:</b> Nguyễn Văn A</li>
+    <li><b>Số tài khoản:</b> 19038752446014</li>
+    <li><b>Ngân hàng:</b> Techcombank</li>
+    <li><b>Nội dung chuyển khoản:</b> THANHTOAN-{{hoadons.[0].idphong}}-{{hoadons.[0].thang}}-{{user.makt}}-{{user.ten}}</li>
+  </ul>
+  <p>Sau khi chuyển khoản, chủ trọ sẽ xác nhận và cập nhật trạng thái thanh toán.</p>
+</div>
+
+
+
+

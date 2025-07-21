@@ -1,0 +1,21 @@
+<h2>Tạo hóa đơn tổng hợp cho phòng {{phongtro.tenphong}} ({{phongtro.idphong}})</h2>
+<form method="POST" onsubmit="return confirmSubmit();">
+  <input type="hidden" name="idphong" value="{{phongtro.idphong}}">
+  <div class="form-group">
+    <label>Tháng:</label>
+   <input name="thang" class="form-control" required placeholder="MM/YYYY" value="{{thang}}">
+  </div>
+  <button type="submit" class="btn btn-success mt-3">Tạo hóa đơn</button>
+</form>
+
+{{#if existed}}
+<script>
+  function confirmSubmit() {
+    return confirm('Hóa đơn tháng này đã tồn tại. Bạn có chắc muốn nhập lại và cập nhật không?');
+  }
+</script>
+{{else}}
+<script>
+  function confirmSubmit() { return true; }
+</script>
+{{/if}}

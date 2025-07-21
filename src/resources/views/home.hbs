@@ -1,30 +1,44 @@
 <div class="mt-4">
-    <div class="row">
-        {{#each phongtro}}
-        <div class="col-sm-6 col-lg-4">
-            <div class="card card-phongtro-item">
-                {{#if this.img}}
-                <img src="{{this.img}}" class="card-img-top" alt="Ảnh phòng {{this.tenphong}}" style="height: 200px; object-fit: cover;">
-                {{/if}}
-                <div class="card-body">
-                    <h5 class="card-title">{{this.tenphong}}</h5>
-                    <p>ID: {{this.idphong}}</p>
-                    <p>Trạng thái: <span class="badge bg-success">{{this.trangthai}}</span></p>
-                    <p>Tiền đặt cọc: <b>{{formatCurrency this.tiendatcoc}}</b></p>
-                    {{#if ../isAdmin}}
-                    {{#if (lookup ../hopdongMap this.idphong)}}
-                    <a href="/hopdong/phong/{{this.idphong}}" class="btn btn-warning btn-sm">Sửa hợp đồng</a>
-                    {{else}}
-                    <a href="/hopdong/tao/{{this.idphong}}" class="btn btn-success btn-sm">Tạo hợp đồng</a>
-                    {{/if}}
-                    {{/if}}
-                    {{#if ../isUser}}
-                    <a href="/hopdong/phong/{{this.idphong}}" class="btn btn-info btn-sm">Xem hợp đồng</a>
-                    {{/if}}
-                    
-                </div>
-            </div>
+  <div class="row g-4">
+    {{#each phongtro}}
+    <div class="col-sm-6 col-lg-4 mb-4">
+      <div class="card h-100 shadow-sm rounded-4 overflow-hidden">
+        {{#if this.img}}
+        <img src="{{this.img}}" class="card-img-top" alt="Ảnh phòng {{this.tenphong}}" style="height: 200px; object-fit: cover;">
+        {{/if}}
+
+        <div class="card-body d-flex flex-column justify-content-between">
+          <div>
+            <h5 class="card-title fw-bold text-primary">{{this.tenphong}}</h5>
+            <p class="mb-1">🆔 <b>{{this.idphong}}</b></p>
+            <p class="mb-1">
+              🏷️ Trạng thái: 
+              {{#if (eq this.trangthai "Đã thuê")}}
+              <span class="badge bg-secondary">{{this.trangthai}}</span>
+              {{else}}
+              <span class="badge bg-success">{{this.trangthai}}</span>
+              {{/if}}
+            </p>
+            <p class="mb-1">💰 Tiền đặt cọc: <b>{{formatCurrency this.tiendatcoc}}</b></p>
+            <p class="mb-2">📝 {{this.mota}}</p>
+          </div>
+
+          <div class="d-flex flex-wrap gap-2 mt-3">
+            {{#if ../isAdmin}}
+              {{#if (lookup ../hopdongMap this.idphong)}}
+              <a href="/hopdong/phong/{{this.idphong}}" class="btn btn-warning btn-sm flex-fill">Sửa hợp đồng</a>
+              {{else}}
+              <a href="/hopdong/tao/{{this.idphong}}" class="btn btn-success btn-sm flex-fill">Tạo hợp đồng</a>
+              {{/if}}
+            {{/if}}
+
+            {{#if ../isUser}}
+            <a href="/hopdong/phong/{{this.idphong}}" class="btn btn-info btn-sm flex-fill">Xem hợp đồng</a>
+            {{/if}}
+          </div>
         </div>
-        {{/each}}
+      </div>
     </div>
+    {{/each}}
+  </div>
 </div>

@@ -6,6 +6,7 @@ const isAdmin = require('../middleware/isAdmin');
 // Hiển thị danh sách phòng trọ
 router.get('/', phongTroController.index);
 
+router.get('/:idphong/quanly', isAdmin, phongTroController.manageRoom);
 // Sửa phòng (chỉ admin)
 router.get('/:idphong/edit', isAdmin, phongTroController.editRoom);
 router.post('/:idphong/update', isAdmin, phongTroController.updateRoom);

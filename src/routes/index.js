@@ -8,13 +8,14 @@ const hopdongRouter = require('./hopdong');
 const phongtroRouter = require('./phongtro');
 const myRoute = require('./my');
 const sucoRouter = require('./suco');
-
-
+const hoadonRouter = require('./hoadon');
+const diennuocRouter = require('./diennuoc');
 
 function route(app) {
    app.use('/my', myRoute);
    app.use('/suco', sucoRouter);
-
+app.use('/hoadon', hoadonRouter);
+  app.use('/diennuoc', diennuocRouter);
   app.use('/phongtro', phongtroRouter);
   app.use('/hopdong', hopdongRouter);
   app.use('/khachthue', khachthueRouter);

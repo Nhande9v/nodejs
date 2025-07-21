@@ -50,6 +50,12 @@ class PhongTroController {
     await PhongTro.deleteOne({ idphong: req.params.idphong });
     res.redirect('/phongtro');
   }
+
+  async manageRoom(req, res) {
+  const idphong = req.params.idphong;
+  const phongtro = await PhongTro.findOne({ idphong });
+  res.render('phongtro-quanly', { phongtro: phongtro ? phongtro.toObject() : null });
+}
 }
 
 module.exports = new PhongTroController();
