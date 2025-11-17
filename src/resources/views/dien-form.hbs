@@ -1,0 +1,86 @@
+<h2 class="text-primary fw-bold text-center mb-4">
+  <i class="fas fa-bolt text-primary me-2"></i>
+  Nhập chỉ số điện cho phòng <span class="text-primary">{{phongtro.tenphong}}</span> 
+  <small class="text-muted">(ID: {{phongtro.idphong}})</small>
+</h2>
+
+<form method="POST" class="p-4 bg-white rounded-4 shadow border border-primary">
+  <input type="hidden" name="idphong" value="{{phongtro.idphong}}">
+
+  <!-- Tháng -->
+  <div class="form-group mb-4">
+    <label class="form-label fw-semibold text-primary">
+      <i class="far fa-calendar-alt me-1"></i> Tháng
+    </label>
+    <input 
+      name="thang" 
+      class="form-control form-control-lg rounded-pill shadow-sm border-primary" 
+      required 
+      placeholder="07/2025" 
+      value="{{thang}}"
+      style="transition:all .3s; border-width:2px;"
+      onfocus="this.style.borderColor='#0d6efd'; this.style.boxShadow='0 0 0 .25rem rgba(13,110,253,.25)'"
+      onblur="this.style.borderColor='#0d6efd'; this.style.boxShadow='none'">
+  </div>
+
+  <!-- Chỉ số mới -->
+  <div class="form-group mb-4">
+    <label class="form-label fw-semibold text-primary">
+      <i class="fas fa-tachometer-alt me-1"></i> Chỉ số mới (kWh)
+    </label>
+    <input 
+      name="chisomoi" 
+      type="number" 
+      class="form-control form-control-lg rounded-pill shadow-sm border-primary" 
+      required 
+      value="{{dien.chisomoi}}"
+      min="0" step="0.01"
+      style="transition:all .3s; border-width:2px;"
+      onfocus="this.style.borderColor='#0d6efd'; this.style.boxShadow='0 0 0 .25rem rgba(13,110,253,.25)'"
+      onblur="this.style.borderColor='#0d6efd'; this.style.boxShadow='none'">
+  </div>
+
+  <!-- Đơn giá -->
+  <div class="form-group mb-4">
+    <label class="form-label fw-semibold text-primary">
+      <i class="fas fa-coins me-1"></i> Đơn giá (VNĐ/kWh)
+    </label>
+    <input 
+      name="dongia" 
+      type="number" 
+      class="form-control form-control-lg rounded-pill shadow-sm border-primary" 
+      value="{{dien.dongia}}" 
+      required 
+      min="0" step="100"
+      style="transition:all .3s; border-width:2px;"
+      onfocus="this.style.borderColor='#0d6efd'; this.style.boxShadow='0 0 0 .25rem rgba(13,110,253,.25)'"
+      onblur="this.style.borderColor='#0d6efd'; this.style.boxShadow='none'">
+  </div>
+
+  <!-- Nút lưu -->
+  <div class="d-grid">
+    <button 
+      type="submit" 
+      class="btn btn-primary btn-lg rounded-pill fw-bold shadow mt-3 d-flex align-items-center justify-content-center gap-2"
+      style="
+        background:linear-gradient(135deg,#0d6efd,#0a58ca);
+        border:none;
+        padding:.8rem;
+        transition:all .3s;
+        box-shadow:0 4px 15px rgba(13,110,253,.3);
+      "
+      onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 25px rgba(13,110,253,.4)'"
+      onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(13,110,253,.3)'">
+      <i class="fas fa-save"></i>
+      Lưu chỉ số điện
+    </button>
+  </div>
+
+  <!-- Ghi chú -->
+  <div class="text-center mt-3">
+    <small class="text-muted">
+      <i class="fas fa-info-circle text-primary me-1"></i>
+      Vui lòng kiểm tra kỹ trước khi lưu
+    </small>
+  </div>
+</form>

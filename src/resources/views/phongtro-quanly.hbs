@@ -1,0 +1,29 @@
+<div class="container-fluid py-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0 fw-semibold">
+            Quản lý điện nước & hóa đơn {{phongtro.tenphong}} ({{phongtro.idphong}})
+          </h4>
+        </div>
+        <div class="card-body">
+          <div class="d-grid d-md-flex gap-2 flex-wrap">
+            <a href="/diennuoc/dien/{{phongtro.idphong}}" class="btn btn-warning btn-lg d-flex align-items-center justify-content-center shadow-sm">
+              <i class="bi bi-lightning-charge me-2"></i> Nhập chỉ số điện
+            </a>
+            <a href="/diennuoc/nuoc/{{phongtro.idphong}}" class="btn btn-info btn-lg text-white d-flex align-items-center justify-content-center shadow-sm">
+              <i class="bi bi-droplet me-2"></i> Nhập chỉ số nước
+            </a>
+            <a href="/hoadon/{{phongtro.idphong}}" class="btn btn-success btn-lg d-flex align-items-center justify-content-center shadow-sm">
+              <i class="bi bi-receipt me-2"></i> Xem hóa đơn
+            </a>
+            <a href="/hoadon/{{phongtro.idphong}}/tao" class="btn btn-outline-success btn-lg d-flex align-items-center justify-content-center shadow-sm border-2">
+              <i class="bi bi-plus-circle me-2"></i> Tạo hóa đơn
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

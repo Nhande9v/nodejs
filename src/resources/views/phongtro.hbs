@@ -15,6 +15,7 @@
       <th scope="col">Trạng thái</th>
       <th scope="col">ID Phòng</th>
       <th scope="col">Tiền đặt cọc</th>
+      
       {{#if isAdmin}}<th scope="col">Sửa đổi phòng</th>{{/if}}
       {{#if isAdmin}}<th scope="col">Hành động</th>{{/if}}
     </tr>
@@ -35,13 +36,15 @@
 
         {{#if ../isAdmin}}
         <td>
-          <a href="/phongtro/{{this.idphong}}/edit" class="btn btn-sm btn-primary">Sửa</a>
-          <form action="/phongtro/{{this.idphong}}/delete" method="POST" style="display: inline;">
-            <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
-          </form>
-        </td>
+  <a href="/phongtro/{{this.idphong}}/edit" class="btn btn-sm btn-primary">Sửa</a>
+  <form action="/phongtro/{{this.idphong}}/delete" method="POST" style="display: inline;">
+    <button type="submit" class="btn btn-sm btn-danger">Xóa</button>
+  </form>
+  <!-- Nút chuyển sang trang quản lý điện nước/hóa đơn -->
+  <a href="/phongtro/{{this.idphong}}/quanly" class="btn btn-sm btn-info mt-1">Quản lý điện nước & hóa đơn</a>
+</td>
         <td>
-          {{#if (lookup ../hopdongMap this.idphong)}}
+          {{#if (and (lookup ../hopdongMap this.idphong) (eq this.trangthai "Đã thuê") )}}
             <a href="/hopdong/phong/{{this.idphong}}" class="btn btn-sm btn-warning">Sửa hợp đồng</a>
           {{else}}
             <a href="/hopdong/tao/{{this.idphong}}" class="btn btn-sm btn-success">Tạo hợp đồng</a>

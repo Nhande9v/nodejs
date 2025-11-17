@@ -47,9 +47,28 @@ class PhongTroController {
     res.redirect('/phongtro');
   }
   async deleteRoom(req, res) {
-    await PhongTro.deleteOne({ idphong: req.params.idphong });
-    res.redirect('/phongtro');
+    try {
+      
+      const hopdong = await Hopdong.findOne({ idphong: req.params.idphong });
+      
+      if (hopdong) {
+        return res.send('Không thể xóa phòng này vì đang có hợp đồng thuê!');
+      }else{
+      
+      await PhongTro.deleteOne({ idphong: req.params.idphong });
+      res.redirect('/phongtro');
+      }
+    } catch (error) {
+      console.error('Lỗi khi xóa phòng:', error);
+      res.status(500).send('Đã xảy ra lỗi khi xóa phòng!');
+    }
   }
+
+  async manageRoom(req, res) {
+  const idphong = req.params.idphong;
+  const phongtro = await PhongTro.findOne({ idphong });
+  res.render('phongtro-quanly', { phongtro: phongtro ? phongtro.toObject() : null });
+}
 }
 
 module.exports = new PhongTroController();

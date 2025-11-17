@@ -24,9 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 
-app.engine('hbs', engine({
-  extname: '.hbs',
-}));
+
 
 app.engine('hbs', engine({
   extname: '.hbs',
@@ -37,8 +35,14 @@ app.engine('hbs', engine({
     },
     sum: (a, b) => a + b,
     eq: (a, b) => a === b,
+    or: (a, b) => a || b,
     lookup: (obj, field) => obj && obj[field],
-    formatCurrency: (value) => value ? value.toLocaleString('vi-VN') : 0
+    formatCurrency: (value) => (typeof value === 'number' ? value.toLocaleString('vi-VN') : '0'),
+    and: function() {
+      return Array.prototype.every.call(arguments, Boolean);
+    },
+    
+    
   }
 }));
 app.set('view engine', 'hbs');
@@ -53,6 +57,7 @@ app.use(session({
 app.use((req, res, next) => {
   res.locals.user = req.session.user;
   res.locals.isUser = req.session.user && req.session.user.role === 'user';
+    res.locals.isAdmin = req.session.user && req.session.user.role === 'admin';
   next();
 });
 

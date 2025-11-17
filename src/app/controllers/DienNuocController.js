@@ -1,97 +1,57 @@
-const DienNuoc = require('../models/DienNuoc');
-const { index } = require('./PhongtroController');
+const Dien = require('../models/Dien');
+const Nuoc = require('../models/Nuoc');
 const Phongtro = require('../models/Phongtro');
-const DienNuocPhong = require('../models/DienNuocPhong');
-const{mongooseToObject} = require('../../util/mongoose');
 
-class dienNuocController {
-  index(req, res) {
-    res.render('them-dienNuoc');
+class DienNuocController {
+  // Hiển thị form nhập chỉ số điện
+  async showDienForm(req, res) {
+    const idphong = req.params.idphong;
+    const thang = req.query.thang; 
+    const phongtro = await Phongtro.findOne({ idphong });
+    let existed = null;
+  if (thang) {
+    existed = await Dien.findOne({ idphong, thang });
   }
-  // [POST] /diennuoc/add
-  async create(req, res) {
+  res.render('dien-form', { phongtro: phongtro ? phongtro.toObject() : null, dien: existed });
+}
+  // Lưu chỉ số điện
+  async submitDien(req, res) {
+    const { idphong, thang, chisomoi, dongia } = req.body;
 
-    try {
-      const formData = req.body;
-      const phongObj = await Phongtro.findOne({ idphong: formData.phong }); // maPhong là trường mã phòng
-      if (!phongObj) {
-        return res.status(400).json({ message: 'Không tìm thấy phòng' });
-      }
-      const thang = parseInt(formData.thang);
-      const nam = parseInt(formData.nam);
-      let thangTruoc = thang - 1;
-      let namTruoc = nam;
-      if (thangTruoc === 0) {
-        thangTruoc = 12;
-        namTruoc = nam - 1;
-      }
-      const thangTruocData = await DienNuoc.findOne({
-        phong: formData.phong,
-        thang: thangTruoc,
-        nam: namTruoc
-      });
-      if(!thangTruocData){
-
-      }else{
-const soDienCu = thangTruocData.soDien;
-      const soNuocCu = thangTruocData.soNuoc;
-
-      const soDienMoi = parseInt(formData.soDien);
-      const soNuocMoi = parseInt(formData.soNuoc);
-
-      const dienTieuThu = (soDienMoi - soDienCu) * 3000;
-      const nuocTieuThu = (soNuocMoi - soNuocCu) * 5000;
-
-      const dienNuocPhong = new DienNuocPhong({
-        idphong: formData.phong,
-        thang: formData.thang,
-        tienPhong: phongObj.tiendatcoc,
-        soDien: dienTieuThu,
-        soNuoc: nuocTieuThu,
-      });
-      dienNuocPhong.save();
-      }
-      
-      const dienNuoc = new DienNuoc({
-        phong: formData.phong,
-        thang: formData.thang,
-        nam: formData.nam,
-        soDien: formData.soDien,
-        soNuoc: formData.soNuoc,
-      });
-      dienNuoc.save();
-
-      res.render('them-dienNuoc', { success: 'Thêm điện nước thành công!' });
-    } catch (error) {
-      res.render('them-dienNuoc', { error: 'Lỗi khi thêm điện nước!' });
+    
+    const existed = await Dien.findOne({ idphong, thang });
+    if (existed) {
+      // Nếu đã có thì update
+      await Dien.updateOne({ idphong, thang }, {  chisomoi, dongia });
+    } else {
+      await Dien.create({ idphong, thang,  chisomoi, dongia });
     }
+    res.redirect('/phongtro');
   }
-  async showForm(req, res) {
-    const idphong = req.params.idphong;
-    const makt = req.session.user?.makt;
-    const thang = req.query.thang;
 
-    res.render('chonthang', {
-      idphong,
-      thang,
-    });
+  // Hiển thị form nhập chỉ số nước
+  async showNuocForm(req, res) {
+  const idphong = req.params.idphong;
+  const thang = req.query.thang;
+  const phongtro = await Phongtro.findOne({ idphong });
+  let existed = null;
+  if (thang) {
+    existed = await Nuoc.findOne({ idphong, thang });
   }
-  async chitiet(req, res, next) {
-    const idphong = req.params.idphong;
-    const makt = req.session.user?.makt;
-    const thang = req.params.thang;
-
-    DienNuocPhong.findOne({ idphong, thang })
-      .then(dienNuocPhong => {
-        res.render('hoadon-form', {
-          idphong,
-          thang,
-          dienNuocPhong: mongooseToObject(dienNuocPhong),
-        });
-      })
-    .catch (next);
+  res.render('nuoc-form', { phongtro: phongtro ? phongtro.toObject() : null, nuoc: existed });
+}
+  // Lưu chỉ số nước
+  async submitNuoc(req, res) {
+  const { idphong, thang,  chisomoi, dongia } = req.body;
+  
+  const existed = await Nuoc.findOne({ idphong, thang });
+  if (existed) {
+    await Nuoc.updateOne({ idphong, thang }, {  chisomoi, dongia });
+  } else {
+    await Nuoc.create({ idphong, thang,  chisomoi, dongia});
   }
+  res.redirect('/phongtro');
+}
 }
 
-
-module.exports = new dienNuocController;
+module.exports = new DienNuocController();

@@ -1,4 +1,5 @@
 const Hopdong = require('../models/Hopdong');
+const Hoadon = require('../models/Hoadon');
 const { multipleMongooseToObject, mongooseToObject } = require('../../util/mongoose'); 
 
 class MyController {
@@ -18,10 +19,20 @@ class MyController {
     next(err);
   }
 
-    // const hopdongs = await Hopdong.find({ makt: req.session.user.makt });
-    // res.render('hopdong-my', { hopdongs: multipleMongooseToObject(hopdongs) });
+
   }
 
+  async myhoadon(req, res) {
+    // Lấy hợp đồng của khách thuê đang đăng nhập
+    const makt = req.session.user?.makt;
+    const hopdong = await Hopdong.findOne({ makt, trangthai: 'Còn hiệu lực' });
+    if (!hopdong) {
+      return res.send('Bạn chưa thuê phòng nào hoặc hợp đồng đã hết hiệu lực.');
+    }
+    // Lấy hóa đơn của phòng đó
+    const hoadons = await Hoadon.find({ idphong: hopdong.idphong  }).sort({ ngaylap: -1 });
+    res.render('hoadon-detail', { hoadons: multipleMongooseToObject(hoadons) });
+  }
 }
 
 module.exports = new MyController() ;

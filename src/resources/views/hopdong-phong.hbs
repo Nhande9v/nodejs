@@ -1,28 +1,3 @@
-{{!-- {{#if hopdong}}
-<ul>
-  <li>Mã chủ trọ: {{hopdong.idchutro}}</li>
-  <li>Mã hợp đồng: {{hopdong.idhopdong}}</li>
-  <li>Mã khách thuê: {{hopdong.makt}}</li>
-  <li>Ngày bắt đầu: {{hopdong.ngaybatdau}}</li>
-  <li>Ngày kết thúc: {{hopdong.ngayketthuc}}</li>
-  <li>Tiền đặt cọc: {{hopdong.tiendatcoc}}</li>
-  <li>Trạng thái: {{hopdong.trangthai}}</li>
-</ul>
-{{#if isMine}}
-<p style="color:green;">Đây là hợp đồng của bạn.</p>
-{{/if}}
-{{else}}
-<p>Phòng này chưa có ai thuê.</p>
-{{#if isUser}}
-<form method="POST" action="/hopdong/phong/{{phongtro.idphong}}">
-  <label>Tiền đặt cọc: <input name="tiendatcoc" type="number" required></label>
-  <button type="submit" class="btn btn-success">Thuê phòng này</button>
-</form>
-{{else}}
-<p><a href="/login">Đăng nhập</a> để thuê phòng này.</p>
-{{/if}}
-{{/if}} --}}
-
 <h2 class="text-center mb-4">Hợp đồng phòng: {{phongtro.tenphong}}</h2>
 {{#if successMessage}}
   <div class="alert alert-success text-center">{{successMessage}}</div>
@@ -36,8 +11,8 @@
         <li class="list-group-item"><strong>Mã chủ trọ:</strong> {{hopdong.idchutro}}</li>
         <li class="list-group-item"><strong>Mã hợp đồng:</strong> {{hopdong.idhopdong}}</li>
         <li class="list-group-item"><strong>Mã khách thuê:</strong> {{hopdong.makt}}</li>
-        <li class="list-group-item"><strong>Ngày bắt đầu:</strong> {{hopdong.ngaybatdau}}</li>
-        <li class="list-group-item"><strong>Ngày kết thúc:</strong> {{hopdong.ngayketthuc}}</li>
+        <li class="list-group-item"><strong>Ngày bắt đầu:</strong> {{formatDate hopdong.ngaybatdau}}</li>
+        <li class="list-group-item"><strong>Ngày kết thúc:</strong> {{formatDate hopdong.ngayketthuc}}</li>
         <li class="list-group-item"><strong>Tiền đặt cọc:</strong> {{hopdong.tiendatcoc}} VNĐ</li>
         <li class="list-group-item"><strong>Trạng thái:</strong> {{hopdong.trangthai}}</li>
       </ul>
@@ -61,7 +36,7 @@
 {{else}}
   <div class="alert alert-info text-center">
     <h4>Thông tin chuyển khoản đặt cọc</h4>
-    <p><b>Chủ tài khoản:</b> {{chutro.tenchutro}}</p>
+    <p><b>Chủ tài khoản:</b> {{chutro.ten}}</p>
     <p><b>Số tài khoản:</b> {{chutro.stk}}</p>
     <p><b>Ngân hàng:</b> {{chutro.nganhang}}</p>
     <p><b>Nội dung chuyển khoản:</b> DATCOC-{{phongtro.idphong}}-{{user.makt}}--{{user.ten}}</p>

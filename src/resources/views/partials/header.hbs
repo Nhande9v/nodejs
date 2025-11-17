@@ -1,64 +1,82 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
-  <a class="navbar-brand font-weight-bold" href="/" style="font-size: 1.5rem;">
-    <span style="color:#007bff;">Nhà trọ</span> tình thương
+<nav class="navbar navbar-expand-lg shadow-sm" style="background: linear-gradient(135deg, #007bff, #0056b3) !important; min-height: 64px;">
+  <a class="navbar-brand font-weight-bold text-white" href="/" style="font-size: 1.5rem;">
+    <span style="color:#fff;">Nhà trọ</span> 
   </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+  <button class="navbar-toggler border-white" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon" style="filter: brightness(0) invert(1);"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav mr-auto align-items-center">
       <li class="nav-item">
-        <a class="nav-link" href="/">Trang chủ</a>
+        <a class="nav-link text-white font-weight-medium" href="/" style="position: relative; padding: 8px 16px;">
+          Trang chủ
+          <span style="position: absolute; bottom: 0; left: 50%; width: 0; height: 2px; background: #fff; transition: all 0.3s; transform: translateX(-50%);"></span>
+        </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/news">Tin tức</a>
+        <a class="nav-link text-white font-weight-medium" href="/news" style="position: relative; padding: 8px 16px;">
+          Tin tức
+          <span style="position: absolute; bottom: 0; left: 50%; width: 0; height: 2px; background: #fff; transition: all 0.3s; transform: translateX(-50%);"></span>
+        </a>
       </li>
       {{#if user}}
         {{#if (eq user.role 'admin')}}
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="danhSachDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Danh sách
+            <a class="nav-link dropdown-toggle text-white font-weight-medium" href="#" id="danhSachDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Quản lý
             </a>
-            <div class="dropdown-menu" aria-labelledby="danhSachDropdown">
-              <a class="dropdown-item" href="/khachthue">Khách thuê</a>
-              <a class="dropdown-item" href="/hopdong">Hợp đồng</a>
-              <a class="dropdown-item" href="/phongtro">Phòng trọ</a>
-              <a class="dropdown-item" href="/suco">Sự cố</a> 
-              <a class="dropdown-item" href="/diennuoc">Điện nước</a>
+            <div class="dropdown-menu" style="background: #007bff; border: none; border-radius: 8px; margin-top: 8px;">
+              <a class="dropdown-item text-white" href="/khachthue" style="background: transparent; transition: background 0.3s;">Khách thuê</a>
+              <a class="dropdown-item text-white" href="/hopdong" style="background: transparent; transition: background 0.3s;">Hợp đồng</a>
+              <a class="dropdown-item text-white" href="/phongtro" style="background: transparent; transition: background 0.3s;">Phòng trọ</a>
+              <a class="dropdown-item text-white" href="/suco" style="background: transparent; transition: background 0.3s;">Sự cố</a>
             </div>
           </li>
-          {{!-- <li class="nav-item">
-            <a class="btn btn-primary ml-3 font-weight-bold" href="/phongtro/them" style="padding: 6px 18px;">+ Thêm phòng mới</a>
-          </li> --}}
         {{/if}}
       {{/if}}
     </ul>
     <ul class="navbar-nav ml-auto align-items-center">
       {{#if user}}
-        <li class="nav-item mr-2">
-          <span class="navbar-text font-weight-bold">
-            <i class="fa fa-user"></i> Xin chào, {{user.ten}}
+        <li class="nav-item mr-3">
+          <span class="navbar-text text-white font-weight-bold">
+            <i class="fa fa-user text-white"></i> Xin chào, {{user.ten}}
             {{#if (eq user.role 'admin')}}
-              <span class="badge badge-warning ml-1">Chủ trọ</span>
+              <span class="badge ml-2" style="background: #ffc107; color: #212529;">Chủ trọ</span>
             {{/if}}
           </span>
         </li>
         <li class="nav-item">
-          <a href="/logout" class="btn btn-outline-secondary">Đăng xuất</a>
+          <a href="/logout" class="btn btn-outline-light border-white text-white hover-bg-white hover-text-blue" 
+             style="transition: all 0.3s; min-width: 110px;">Đăng xuất</a>
         </li>
       {{else}}
         <li class="nav-item">
-          <a href="/login" class="btn btn-outline-primary mr-2">Đăng nhập</a>
+          <a href="/login" class="btn btn-outline-light border-white text-white mr-2" 
+             style="transition: all 0.3s;">Đăng nhập</a>
         </li>
         <li class="nav-item">
-          <a href="/dang-ky" class="btn btn-success">Đăng ký</a>
+          <a href="/dang-ky" class="btn text-white" 
+             style="background: #00d4ff; transition: all 0.3s; min-width: 100px;">Đăng ký</a>
         </li>
       {{/if}}
       {{#if isUser}}
         <li class="nav-item ml-2">
-          <a href="/my/hopdong" class="btn btn-info">Hợp đồng của tôi</a>
+          <a href="/my/hopdong" class="btn text-white" 
+             style="background: #00bfff; transition: all 0.3s;">Hợp đồng của tôi</a>
+        </li>
+        <li class="nav-item ml-2">
+          <a href="/my/hoadon" class="btn text-white" 
+             style="background: #00bfff; transition: all 0.3s;">Hóa đơn phòng tôi thuê</a>
         </li>
       {{/if}}
     </ul>
   </div>
 </nav>
+
+<!-- Thêm một chút hiệu ứng hover cho link (tùy chọn, copy vào <style> nếu muốn đẹp hơn) -->
+<style>
+  .nav-link:hover span { width: 70% !important; }
+  .btn:hover { opacity: 0.9; transform: translateY(-1px); }
+  .hover-bg-white:hover { background: white !important; color: #007bff !important; }
+  .dropdown-item:hover { background: rgba(255,255,255,0.2) !important; }
+</style>
