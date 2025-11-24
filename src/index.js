@@ -33,6 +33,14 @@ app.engine('hbs', engine({
       if (!date) return '';
       return new Date(date).toLocaleDateString('vi-VN');
     },
+    formatDateForInput(date) {
+      if (!date) return '';
+      const d = new Date(date);
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const dd = String(d.getDate()).padStart(2, '0');
+      return `${yyyy}-${mm}-${dd}`;
+    },
     sum: (a, b) => a + b,
     eq: (a, b) => a === b,
     lookup: (obj, field) => obj && obj[field],

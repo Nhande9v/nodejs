@@ -21,6 +21,14 @@
     </ul>
 
     <div class="mt-4 text-center">
+      {{#if isAdmin}}
+      <div class="mb-3">
+        <form method="POST" action="/hopdong/{{hopdong.idhopdong}}/delete" style="display:inline-block; margin-right: 10px;">
+          <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa hợp đồng này?')">Xóa hợp đồng</button>
+        </form>
+        <a href="/hopdong/phong/{{hopdong.idphong}}/{{hopdong.idhopdong}}/edit" class="btn btn-primary">Sửa hợp đồng</a>
+      </div>
+      {{/if}}
       <a href="/hopdong" class="btn btn-secondary">← Quay lại danh sách</a>
     </div>
   </div>

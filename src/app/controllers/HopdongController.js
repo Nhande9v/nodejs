@@ -11,7 +11,7 @@ class HopdongController {
     const phongtro = await Phongtro.findOne({ idphong });
     if (!phongtro) return res.send('Không tìm thấy phòng này!');
     // Lấy hợp đồng theo idphong
-    const hopdong = await Hopdong.findOne({ idphong: idphong });
+    const hopdong = await Hopdong.findOne({ idphong: idphong,trangthai: { $ne: 'Đã kết thúc' } });
     let isMine = false;
     if (hopdong && req.session.user && hopdong.makt === req.session.user.makt) {
       isMine = true;
@@ -41,7 +41,13 @@ class HopdongController {
 
   async detail(req, res) {
     const hopdong = await Hopdong.findById(req.params.id);
-    res.render('hopdong-detail', { hopdong: hopdong ? hopdong.toObject() : null });
+    // Kiểm tra role admin từ session
+    const isAdmin = req.session.user && req.session.user.role === 'admin';
+    
+    res.render('hopdong-detail', { 
+      hopdong: hopdong ? hopdong.toObject() : null,
+      isAdmin
+    });
   }
 
 
@@ -83,6 +89,60 @@ async showCreateForm(req, res) {
    
   //
   res.render('hopdong-tao-admin', { phongtro: phongtro.toObject() });
+}
+
+// Hiển thị form sửa hợp đồng cho chủ trọ (admin)
+async showEditForm(req, res) {
+  const idphong = req.params.phongtroId;
+  const phongtro = await Phongtro.findOne({ idphong });
+  if (!phongtro) return res.send('Không tìm thấy phòng này!');
+
+  const hopdong = await Hopdong.findOne({ idphong });
+  if (!hopdong) return res.send('Không tìm thấy hợp đồng để sửa!');
+
+  // Chuẩn hóa ngày sang định dạng YYYY-MM-DD để tiền điền vào input[type=date]
+  const ngaybatdauISO = hopdong.ngaybatdau ? new Date(hopdong.ngaybatdau).toISOString().slice(0,10) : '';
+  const ngayketthucISO = hopdong.ngayketthuc ? new Date(hopdong.ngayketthuc).toISOString().slice(0,10) : '';
+
+  res.render('hopdong-edit', {
+    hopdong: hopdong.toObject(),
+    phongtro: phongtro.toObject(),
+    ngaybatdauISO,
+    ngayketthucISO
+  });
+}
+
+// Xử lý cập nhật hợp đồng từ form (admin)
+async updateForRoom(req, res) {
+  try {
+    const idhopdong = req.params.idhopdong;
+    const idphong = req.params.phongtroId;
+    const hopdong = await Hopdong.findOne({ idphong, idhopdong });
+    if (!hopdong) return res.send('Không tìm thấy hợp đồng để cập nhật!');
+
+    const { makt, ngaybatdau, ngayketthuc, tiendatcoc, trangthai } = req.body;
+
+    // Cập nhật các trường chính
+    hopdong.makt = makt || hopdong.makt;
+    hopdong.ngaybatdau = ngaybatdau ? new Date(ngaybatdau) : hopdong.ngaybatdau;
+    hopdong.ngayketthuc = ngayketthuc ? new Date(ngayketthuc) : hopdong.ngayketthuc;
+    hopdong.tiendatcoc = tiendatcoc !== undefined ? Number(tiendatcoc) : hopdong.tiendatcoc;
+    hopdong.trangthai = trangthai || hopdong.trangthai;
+
+    await hopdong.save();
+
+    // Nếu trạng thái hợp đồng thay đổi, có thể cập nhật trạng thái phòng
+    if (hopdong.trangthai === 'Còn hiệu lực') {
+      await Phongtro.updateOne({ idphong }, { trangthai: 'Đã thuê' });
+    } else if (hopdong.trangthai === 'Đã kết thúc') {
+      await Phongtro.updateOne({ idphong }, { trangthai: 'Chưa thuê' });
+    }
+
+    res.redirect('/phongtro');
+  } catch (error) {
+    console.error('Lỗi khi cập nhật hợp đồng:', error);
+    res.status(500).send('Đã xảy ra lỗi khi cập nhật hợp đồng!');
+  }
 }
 
 // Tạo hợp đồng mới cho chủ trọ (admin)

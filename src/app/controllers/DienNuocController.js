@@ -21,9 +21,9 @@ class DienNuocController {
     const existed = await Dien.findOne({ idphong, thang });
     if (existed) {
       // Nếu đã có thì update
-      await Dien.updateOne({ idphong, thang }, { chisocu, chisomoi, dongia, tiendien });
+      await Dien.updateOne({ idphong, thang }, {  chisomoi, dongia });
     } else {
-      await Dien.create({ idphong, thang, chisocu, chisomoi, dongia, tiendien });
+      await Dien.create({ idphong, thang, chisomoi, dongia });
     }
     res.redirect('/phongtro');
   }
@@ -45,9 +45,9 @@ class DienNuocController {
   const tiennuoc = (chisomoi - chisocu) * dongia;
   const existed = await Nuoc.findOne({ idphong, thang });
   if (existed) {
-    await Nuoc.updateOne({ idphong, thang }, { chisocu, chisomoi, dongia, tiennuoc });
+    await Nuoc.updateOne({ idphong, thang }, {  chisomoi, dongia });
   } else {
-    await Nuoc.create({ idphong, thang, chisocu, chisomoi, dongia, tiennuoc });
+    await Nuoc.create({ idphong, thang,  chisomoi, dongia });
   }
   res.redirect('/phongtro');
 }

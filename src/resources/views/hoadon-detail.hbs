@@ -1,64 +1,121 @@
-<h2>Hóa đơn tổng hợp phòng</h2>
-<table class="table">
-  <thead>
-    <tr>
-      <th>Tháng</th>
-      <th>Tiền điện</th>
-      <th>Tiền nước</th>
-      <th>Tiền thuê phòng</th>
-      <th>Tổng tiền</th>
-      <th>Ngày lập</th>
-      <th>Trạng thái</th>
-    {{#if isAdmin}}
-      <th>Hành động</th>
-    {{/if}}
-    </tr>
-  </thead>
-  <tbody>
-   {{#each hoadons}}
-<tr>
-  <td>{{this.thang}}</td>
-  <td>{{formatCurrency this.tiendien}}</td>
-  <td>{{formatCurrency this.tiennuoc}}</td>
-  <td>{{formatCurrency this.tienthuephong}}</td>
-  <td>{{formatCurrency this.tongtien}}</td>
-  <td>{{formatDate this.ngaylap}}</td>
-  <td>
-    {{#if (eq this.trangthai "Đã thanh toán")}}
-      <span class="badge badge-success">Đã thanh toán</span>
-    {{else}}
-      <span class="badge badge-warning">Chưa thanh toán</span>
-    {{/if}}
-  </td>
+<div class="container mt-5">
+  <div class="card shadow-lg border-0 rounded-4 overflow-hidden" 
+       style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
 
-  <td>
-  {{#if ../isAdmin}}
-  {{!-- Sửa --}}
-    <form method="POST" action="/hoadon/{{this.idphong}}/confirm?thang={{this.thang}}">
-      <button type="submit" class="btn btn-success btn-sm ml-2">Xác nhận đã nhận tiền</button>
-    </form>
-  {{else}}
-    <span class="text-muted">--</span>
-  {{/if}}
-</td>
-</tr>
-{{/each}}
-  </tbody>
-</table>
+    <!-- Header -->
+    <div class="card-header bg-primary text-white text-center py-4">
+      <h2 class="mb-0 fw-bold d-flex align-items-center justify-content-center gap-2">
+        <i class="fas fa-file-invoice-dollar fa-lg"></i>
+        Hóa đơn tổng hợp phòng
+      </h2>
+    </div>
 
-{{!-- Thông tin chuyển khoản --}}
-<div class="alert alert-info mt-4">
-  <h5>Hướng dẫn thanh toán</h5>
-  <p>Vui lòng chuyển khoản tổng tiền hóa đơn vào tài khoản chủ trọ:</p>
-  <ul>
-    <li><b>Chủ tài khoản:</b> Nguyễn Văn A</li>
-    <li><b>Số tài khoản:</b> 19038752446014</li>
-    <li><b>Ngân hàng:</b> Techcombank</li>
-    <li><b>Nội dung chuyển khoản:</b> THANHTOAN-{{hoadons.[0].idphong}}-{{hoadons.[0].thang}}-{{user.makt}}-{{user.ten}}</li>
-  </ul>
-  <p>Sau khi chuyển khoản, chủ trọ sẽ xác nhận và cập nhật trạng thái thanh toán.</p>
+    <!-- Body -->
+    <div class="card-body p-4 p-md-5">
+
+      <!-- Bảng hóa đơn -->
+      <div class="table-responsive">
+        <table class="table table-hover align-middle text-center">
+          <thead class="table-primary text-white">
+            <tr>
+              <th><i class="far fa-calendar-alt me-1"></i> Tháng</th>
+              <th><i class="fas fa-bolt text-warning me-1"></i> Tiền điện</th>
+              <th><i class="fas fa-tint text-info me-1"></i> Tiền nước</th>
+              <th><i class="fas fa-home text-success me-1"></i> Tiền thuê</th>
+              <th><i class="fas fa-coins text-warning me-1"></i> Tổng tiền</th>
+              <th><i class="far fa-clock me-1"></i> Ngày lập</th>
+              <th><i class="fas fa-check-circle me-1"></i> Trạng thái</th>
+              {{#if isAdmin}}
+                <th><i class="fas fa-cogs me-1"></i> Hành động</th>
+              {{/if}}
+            </tr>
+          </thead>
+          <tbody>
+            {{#each hoadons}}
+            <tr class="border-start border-primary border-3">
+              <td class="fw-semibold">{{this.thang}}</td>
+              <td>{{formatCurrency this.tiendien}}</td>
+              <td>{{formatCurrency this.tiennuoc}}</td>
+              <td>{{formatCurrency this.tienthuephong}}</td>
+              <td class="fw-bold text-primary">{{formatCurrency this.tongtien}}</td>
+              <td>{{formatDate this.ngaylap}}</td>
+              <td>
+                {{#if (eq this.trangthai "Đã thanh toán")}}
+                  <span class="badge bg-success rounded-pill px-3 py-2">
+                    <i class="fas fa-check me-1"></i> Đã thanh toán
+                  </span>
+                {{else}}
+                  <span class="badge bg-warning text-dark rounded-pill px-3 py-2">
+                    <i class="fas fa-clock me-1"></i> Chưa thanh toán
+                  </span>
+                {{/if}}
+              </td>
+
+              <td>
+                {{#if ../isAdmin}}
+                  <form method="POST" action="/hoadon/{{this.idphong}}/confirm?thang={{this.thang}}" class="d-inline">
+                    <button type="submit" 
+                            class="btn btn-success btn-sm rounded-pill shadow-sm px-3 d-flex align-items-center gap-1">
+                      <i class="fas fa-check"></i> Xác nhận
+                    </button>
+                  </form>
+                {{else}}
+                  <span class="text-muted small">—</span>
+                {{/if}}
+              </td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Không có hóa đơn -->
+      {{#unless hoadons.length}}
+        <div class="text-center py-5 text-muted">
+          <i class="fas fa-inbox fa-3x mb-3 text-primary opacity-50"></i>
+          <p class="fw-semibold">Chưa có hóa đơn nào</p>
+        </div>
+      {{/unless}}
+
+      <!-- Thông tin chuyển khoản -->
+      <div class="alert alert-info border-0 mt-5 rounded-4 shadow-sm" 
+           style="background: linear-gradient(135deg, #e3f2fd, #bbdefb);">
+        <h5 class="alert-heading d-flex align-items-center gap-2 text-primary fw-bold">
+          <i class="fas fa-info-circle"></i> Hướng dẫn thanh toán
+        </h5>
+        <p class="mb-3">Vui lòng chuyển khoản <strong>tổng tiền hóa đơn</strong> vào tài khoản chủ trọ:</p>
+        <ul class="list-unstyled mb-3">
+          <li class="d-flex align-items-center gap-2 mb-2">
+            <i class="fas fa-user text-primary"></i>
+            <strong>Chủ tài khoản:</strong> Nguyễn Văn A
+          </li>
+          <li class="d-flex align-items-center gap-2 mb-2">
+            <i class="fas fa-credit-card text-primary"></i>
+            <strong>Số tài khoản:</strong> <code class="bg-white px-2 py-1 rounded">19038752446014</code>
+          </li>
+          <li class="d-flex align-items-center gap-2 mb-2">
+            <i class="fas fa-university text-primary"></i>
+            <strong>Ngân hàng:</strong> Techcombank
+          </li>
+          <li class="d-flex align-items-center gap-2">
+            <i class="fas fa-comment-alt text-primary"></i>
+            <strong>Nội dung:</strong> 
+            <code class="bg-white px-2 py-1 rounded d-block mt-1">
+              THANHTOAN-{{hoadons.[0].idphong}}-{{hoadons.[0].thang}}-{{user.makt}}-{{user.ten}}
+            </code>
+          </li>
+        </ul>
+        <p class="mb-0 text-muted small">
+          <i class="fas fa-bell me-1"></i>
+          Sau khi chuyển khoản, chủ trọ sẽ xác nhận và cập nhật trạng thái.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Footer nhẹ -->
+    <div class="card-footer text-center small text-muted py-3 bg-light">
+      Cảm ơn bạn đã sử dụng dịch vụ trọ!
+    </div>
+  </div>
 </div>
-
-
-
-

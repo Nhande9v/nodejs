@@ -1,0 +1,31 @@
+<h2>Sửa hợp đồng cho phòng: {{phongtro.tenphong}} ({{phongtro.idphong}})</h2>
+<form method="POST" action="/hopdong/phong/{{phongtro.idphong}}/{{hopdong.idhopdong}}/edit">
+
+	<div class="form-group mb-2">
+		<label>Mã khách thuê :</label>
+		<input type="text" name="makt" class="form-control" required value="{{hopdong.makt}}">
+	</div>
+	<div class="form-group mb-2">
+		<label>Ngày bắt đầu:</label>
+		<input type="date" name="ngaybatdau" class="form-control" value="{{ngaybatdauISO}}">
+	</div>
+	<div class="form-group mb-2">
+		<label>Ngày kết thúc:</label>
+		<input type="date" name="ngayketthuc" class="form-control" value="{{ngayketthucISO}}">
+	</div>
+	<div class="form-group mb-2">
+		<label>Tiền đặt cọc:</label>
+		<input type="number" name="tiendatcoc" class="form-control" value="{{hopdong.tiendatcoc}}">
+	</div>
+	<div class="form-group mb-2">
+		<label>Trạng thái:</label>
+		<select name="trangthai" class="form-control">
+			<option value="Còn hiệu lực" {{#if (eq hopdong.trangthai "Còn hiệu lực")}}selected{{/if}}>Còn hiệu lực</option>
+		
+			<option value="Đã kết thúc" {{#if (eq hopdong.trangthai "Đã kết thúc")}}selected{{/if}}>Đã kết thúc</option>
+			
+		</select>
+	</div>
+	<button type="submit" class="btn btn-primary mt-3">Lưu thay đổi</button>
+	<a href="/hopdong/phong/{{phongtro.idphong}}" class="btn btn-secondary mt-3">Hủy</a>
+</form>

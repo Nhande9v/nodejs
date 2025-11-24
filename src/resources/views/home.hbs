@@ -25,7 +25,7 @@
 
           <div class="d-flex flex-wrap gap-2 mt-3">
             {{#if ../isAdmin}}
-              {{#if (lookup ../hopdongMap this.idphong)}}
+              {{#if (and (lookup ../hopdongMap this.idphong) (eq this.trangthai "Đã thuê") )}}
               <a href="/hopdong/phong/{{this.idphong}}" class="btn btn-warning btn-sm flex-fill">Sửa hợp đồng</a>
               {{else}}
               <a href="/hopdong/tao/{{this.idphong}}" class="btn btn-success btn-sm flex-fill">Tạo hợp đồng</a>

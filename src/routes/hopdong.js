@@ -18,5 +18,8 @@ router.post('/:idhopdong/delete', isAdmin, HopdongController.deleteHopdong);
 router.post('/phong/:phongtroId/yeucau', HopdongController.requestRent);
 router.get('/phong/:phongtroId', HopdongController.viewByRoom);
 router.post('/phong/:phongtroId', HopdongController.createForRoom);
+// Chỉnh sửa hợp đồng của phòng (form và xử lý) - chỉ cho admin
+router.get('/phong/:phongtroId/:idhopdong/edit', isAdmin, HopdongController.showEditForm);
+router.post('/phong/:phongtroId/:idhopdong/edit', isAdmin, HopdongController.updateForRoom);
 
 module.exports = router;

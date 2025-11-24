@@ -26,7 +26,7 @@
         <form method="POST" action="/hopdong/{{hopdong.idhopdong}}/delete" style="display:inline-block; margin-right: 10px;">
           <button type="submit" class="btn btn-danger">Xóa hợp đồng</button>
         </form>
-        <form method="GET" action="/hopdong/phong/{{phongtro.idphong}}/edit" style="display:inline-block;">
+        <form method="GET" action="/hopdong/phong/{{phongtro.idphong}}/{{hopdong.idhopdong}}/edit" style="display:inline-block;">
           <button type="submit" class="btn btn-primary">Sửa hợp đồng</button>
         </form>
       </div>

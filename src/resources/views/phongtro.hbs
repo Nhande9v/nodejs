@@ -44,7 +44,7 @@
   <a href="/phongtro/{{this.idphong}}/quanly" class="btn btn-sm btn-info mt-1">Quản lý điện nước & hóa đơn</a>
 </td>
         <td>
-          {{#if (lookup ../hopdongMap this.idphong)}}
+          {{#if (and (lookup ../hopdongMap this.idphong) (eq this.trangthai "Đã thuê") )}}
             <a href="/hopdong/phong/{{this.idphong}}" class="btn btn-sm btn-warning">Sửa hợp đồng</a>
           {{else}}
             <a href="/hopdong/tao/{{this.idphong}}" class="btn btn-sm btn-success">Tạo hợp đồng</a>

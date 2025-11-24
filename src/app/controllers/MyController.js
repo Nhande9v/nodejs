@@ -19,7 +19,8 @@ class MyController {
     next(err);
   }
 
-
+    // const hopdongs = await Hopdong.find({ makt: req.session.user.makt });
+    // res.render('hopdong-my', { hopdongs: multipleMongooseToObject(hopdongs) });
   }
 
   async myhoadon(req, res) {

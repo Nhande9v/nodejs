@@ -23,16 +23,20 @@ class HoadonController {
     const { idphong, thang } = req.body;
     // Lấy tiền điện, nước theo tháng/phòng
     const dien = await Dien.findOne({ idphong, thang });
+    const dientruoc=await Dien.findOne({ idphong, thang: { $lt: thang } }).sort({ thang: -1 });
     const nuoc = await Nuoc.findOne({ idphong, thang });
+    const nuoctruoc=await Nuoc.findOne({ idphong, thang: { $lt: thang } }).sort({ thang: -1 });
     const phongtro = await Phongtro.findOne({ idphong });
 
      if (!dien || !nuoc || !phongtro) {
       return res.send('Chưa có đủ dữ liệu điện, nước hoặc phòng!');
     }
-    const tiendien = dien.tiendien;
-    const tiennuoc = nuoc.tiennuoc;
+    const tiendien = (dien.chisomoi - (dientruoc ? dientruoc.chisomoi : 0)) * dien.dongia;
+    
+    const tiennuoc = (nuoc.chisomoi - (nuoctruoc ? nuoctruoc.chisomoi : 0)) * nuoc.dongia;
     const tienthuephong = phongtro.tiendatcoc;
     const tongtien = tiendien + tiennuoc + tienthuephong;
+    
 
     const existed = await Hoadon.findOne({ idphong, thang });
   if (existed) {
@@ -48,7 +52,8 @@ class HoadonController {
       tiendien,
       tiennuoc,
       tienthuephong,
-      tongtien
+      tongtien,
+      trangthai : "Chưa thanh toán",
     });
     
     // Cập nhật trạng thái phòng thành "Đã thanh toán"

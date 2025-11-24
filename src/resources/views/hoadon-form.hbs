@@ -1,21 +1,68 @@
-<h2>Tạo hóa đơn tổng hợp cho phòng {{phongtro.tenphong}} ({{phongtro.idphong}})</h2>
-<form method="POST" onsubmit="return confirmSubmit();">
-  <input type="hidden" name="idphong" value="{{phongtro.idphong}}">
-  <div class="form-group">
-    <label>Tháng:</label>
-   <input name="thang" class="form-control" required placeholder="MM/YYYY" value="{{thang}}">
+<div class="container-fluid py-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8 col-12">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-success text-white">
+          <h4 class="mb-0 fw-semibold d-flex align-items-center">
+            <i class="bi bi-file-earmark-plus me-2"></i>
+            Tạo hóa đơn tổng hợp cho  {{phongtro.tenphong}} ({{phongtro.idphong}})
+          </h4>
+        </div>
+        <div class="card-body p-4">
+          <form method="POST" onsubmit="return confirmSubmit();">
+            <input type="hidden" name="idphong" value="{{phongtro.idphong}}">
+
+            <div class="mb-4">
+              <label for="thang" class="form-label fw-medium">
+                <i class="bi bi-calendar3 me-1"></i> Tháng hóa đơn
+              </label>
+              <input 
+                type="text" 
+                id="thang"
+                name="thang" 
+                class="form-control form-control-lg" 
+                placeholder="MM/YYYY" 
+                pattern="(0[1-9]|1[0-2])\/[0-9]{4}" 
+                title="Vui lòng nhập đúng định dạng MM/YYYY (ví dụ: 03/2025)"
+                value="{{thang}}" 
+                required
+              >
+              <div class="form-text">Ví dụ: 03/2025</div>
+            </div>
+
+            <div class="d-grid">
+              <button type="submit" class="btn btn-success btn-lg shadow-sm d-flex align-items-center justify-content-center">
+                <i class="bi bi-check-circle me-2"></i> Tạo hóa đơn
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Thông báo cảnh báo nếu hóa đơn đã tồn tại -->
+      {{#if existed}}
+      <div class="alert alert-warning mt-3 d-flex align-items-center" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        <div>
+          <strong>Chú ý:</strong> Hóa đơn tháng <strong>{{thang}}</strong> đã tồn tại. 
+          Việc tạo lại sẽ <strong>cập nhật và ghi đè</strong> dữ liệu cũ.
+        </div>
+      </div>
+      {{/if}}
+    </div>
   </div>
-  <button type="submit" class="btn btn-success mt-3">Tạo hóa đơn</button>
-</form>
+</div>
 
 {{#if existed}}
 <script>
   function confirmSubmit() {
-    return confirm('Hóa đơn tháng này đã tồn tại. Bạn có chắc muốn nhập lại và cập nhật không?');
+    return confirm('Hóa đơn tháng {{thang}} đã tồn tại. Bạn có chắc muốn nhập lại và cập nhật không?');
   }
 </script>
 {{else}}
 <script>
-  function confirmSubmit() { return true; }
+  function confirmSubmit() { 
+    return true; 
+  }
 </script>
 {{/if}}
